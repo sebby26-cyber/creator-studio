@@ -41,3 +41,6 @@ media/
 
 # local backups (may hold private project content)
 *.bak
+
+# Plugin listing icons ship with the plugins
+!plugins/*/.claude-plugin/icon.png

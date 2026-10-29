@@ -44,3 +44,7 @@ media/
 
 # Plugin listing icons ship with the plugins
 !plugins/*/.claude-plugin/icon.png
+
+# README showcase: small, metadata-stripped example outputs (the one media folder that is committed)
+!assets/showcase/
+!assets/showcase/**

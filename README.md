@@ -25,6 +25,36 @@ Creator Studio is a [Claude Code plugin marketplace](https://docs.claude.com/en/
 | **Pictures** | Character-consistent stills, outfits, composites and edits with Higgsfield, plus a checklist-based quality pass; OpenRouter image models are also selectable. |
 | **Video** | OpenRouter video (frame support checked live), or Higgsfield image-to-video, start/end-frame and motion-transfer clips; assembly with FFmpeg or FilmCraft; burned-in captions; Shorts cut from long video; edit plans for CapCut, Descript and OpusClip. |
 
+## Showcase
+
+Examples are real outputs from projects run with these plugins; some steps used tools built inside each project. Channel names are omitted. Files are downscaled and loops are a few seconds cut from the middle of the finished videos.
+
+| Money explainer Short (36 s, 9:16) | Science explainer (11 min, 16:9) | Animated fable (45 s, 16:9) |
+|---|---|---|
+| <img src="assets/showcase/explainer-short-loop.webp" alt="Five-second loop from a money explainer Short: a mortgage payment split into interest and principal, with bars growing year by year" width="200"> | <img src="assets/showcase/science-explainer-loop.webp" alt="Four-second loop from a science explainer: Earth turning with a ring around it" width="320"> | <img src="assets/showcase/fable-loop.webp" alt="Five-second loop from an animated fable in a two-colour print style: a gas cloud collapses into a young star" width="320"> |
+| Narration from local TTS, scenes rendered locally, captions burned in. | A locked voice, music cues ducked under it and sound effects; picture assembled from generated stills and motion clips. | Animation rendered from code the agent wrote for the project, with captions; one two-colour print look across eight episodes. |
+
+**Science explainer, picture side.** Every shot in the finished cut, in order (opening and closing title cards left out):
+
+<img src="assets/showcase/science-explainer-contact.jpg" alt="Contact sheet of about 80 shots from a science explainer: a ringed Earth from space, ring arcs over mountains, cities and beaches, satellites, and a frozen coastline" width="100%">
+
+**Sleep story, audio side.** Six episodes of 26 to 31 minutes, each a directed TTS read, paced, joined and mastered, then set to one still per episode. Six of the series' thumbnails:
+
+<img src="assets/showcase/sleep-story-thumbnails.jpg" alt="Six sleep-story thumbnails in a row of three by two: a harbour quay at dusk, a fog-bound pier, a blackberry bowl on a cliff path, a sleeping cat, oil cans on a shelf, hands on an open book" width="100%">
+
+[Listen to 20 seconds](assets/showcase/sleep-story-excerpt.mp3) from the middle of one episode (mono MP3, 235 KB).
+
+### Batch production
+
+Two real batches, each made from one saved episode format:
+
+- **56 money explainer Shorts.** 56 Shorts of 33 to 40 seconds at 1080x1920, each with a 16:9 thumbnail and a Shorts cover, all on one episode format. 55 of them were produced in one day in 11 batches (five Shorts plus one 16:9 regular video each), with batches running in parallel and every heavy step (TTS, render) going through a shared two-slot job limiter. Provider spend was $0: narration came from a local TTS model and the video from a local renderer, both built into the project.
+- **6 sleep stories.** Six episodes of 26 to 31 minutes at 1920x1080 on one locked episode format; episodes 3 to 6 were produced in parallel on one day. Provider spend was text-to-speech only, between $1.42 and $1.52 per episode for episodes 2 to 6 (read from each episode's spend ledger).
+
+<img src="assets/showcase/explainer-shorts-grid.jpg" alt="Grid of 56 money explainer thumbnails in one layout: a statement card with a big number, a stamped result and a one-line question" width="100%">
+
+How you do the same: save the format once in the project (models, voices, loudness and spend cap in `project.json`, the steps and your review stops in `workflow.md`, and any helper tool the agent builds, such as a renderer, in the project's `tools/` folder), then ask for the episodes you want. Each episode is its own production with its own `status.md`, so several can run side by side and any of them can be resumed. Heavy local jobs (FFmpeg, speech-to-text, renders, exports) wait on one shared lock instead of running at once ([local-jobs.md](plugins/studio-core/skills/studio/references/local-jobs.md)); paid steps still wait for your OK.
+
 ## Requirements
 
 - **[Claude Code](https://docs.claude.com/en/docs/claude-code)** (macOS, Linux or Windows). That is the only hard requirement: scripting and planning work with nothing else.

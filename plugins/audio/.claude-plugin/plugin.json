@@ -1,0 +1,14 @@
+{
+ "name": "audio",
+ "version": "0.7.1",
+ "description": "emotional direction (model-agnostic delivery layer), ElevenLabs voice direction and speech rendering (routes mcp|web|openrouter), ElevenLabs music + SFX rendering, Suno (web), music/sound-design briefs and voiceover craft (ai-music-and-sound, suno, ai-voiceover from social-media-skills, MIT), audio post-mix incl. scored mixes, and two-pass EBU R128 mastering.",
+ "author": {
+  "name": "Creator Studio contributors"
+ },
+ "keywords": [
+  "creator-studio",
+  "media",
+  "audio"
+ ],
+ "license": "GPL-3.0-or-later"
+}

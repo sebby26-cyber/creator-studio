@@ -1,0 +1,180 @@
+{
+ "_meta": {
+  "provider": "elevenlabs",
+  "verified": "2026-10-08",
+  "sources": "live mcp__claude_ai_ElevenLabs__creative_generate_speech schema (prompt, model_id, voice_id, context, generations_count, estimate_only); an MCP estimate_only preflight (48.9951 credits for 49 chars, ~1 credit/char, 2026-10-08)",
+  "model_rule": "The TTS model ALWAYS comes from the project's voice profile (project.json voices[].model), never a code or provider default. Resolve explicit production choices into that profile for the requested scope. ElevenLabs recommends v4 for new work; v3 remains valid when the project/voice selects it. Earlier runbooks pin v3; they do not select the model for other projects.",
+  "generations_count_note": "MCP tool default generations_count is 4 (= 4x cost). Always pin 1 unless the user asks for more takes.",
+  "routes_note": "Direct ElevenLabs routes only; OpenRouter TTS/STT ids and supported voices are in openrouter.json (no music/SFX/voice library there). mcp = claude.ai ElevenLabs connector (creative_generate_speech; outputs are flow URLs that expire ~2 h, so asset-persist must run); web = elevenlabs.io in a signed-in browser via clipboard paste (never typed key-by-key), the fallback when no connector is available.",
+  "tool_names_note": "Tool names here are those of Claude's ElevenLabs connector (claude.ai Settings > Connectors), which Claude Code shows as mcp__claude_ai_ElevenLabs__creative_*. If ElevenLabs' MCP server is added to Claude Code directly, the same creative_* tools appear under that server's own prefix (for example mcp__elevenlabs__creative_generate_speech): match on the creative_* name. Other ElevenLabs MCP servers expose different tools; with none of the creative_* tools available, use route web.",
+  "tagging_sources": "[verified] Supplied official-source facts dated 2026-10-17; citations and evidence labels: ../elevenlabs-tagging.md. No network recheck in this edit."
+ },
+ "tts_models": [
+  "eleven_flash_v2_5",
+  "eleven_multilingual_v2",
+  "eleven_turbo_v2_5",
+  "eleven_v3",
+  "eleven_v4",
+  "eleven_v4_turbo",
+  "eleven_flash_v2",
+  "eleven_turbo_v2"
+ ],
+ "tags_supported": {
+  "eleven_v3": true,
+  "eleven_v4": true,
+  "eleven_multilingual_v2": false,
+  "eleven_flash_v2_5": false,
+  "eleven_turbo_v2_5": false,
+  "eleven_v4_turbo": true,
+  "eleven_flash_v2": false,
+  "eleven_turbo_v2": false
+ },
+ "tts_notes": {
+  "_source": "[verified] Official-source facts supplied 2026-10-17; ../elevenlabs-tagging.md. Route availability must be checked in the connector/UI; a public id does not prove MCP exposure.",
+  "eleven_v3": "[verified] Free-form bracket tag syntax shared with v4; 70+ languages; PVCs not fully optimized. Valid when selected by the voice profile. [maintainer-observed] Delivery is model-specific; see ../elevenlabs-tagging.md for model-change listening review.",
+  "eleven_v4": "[verified] Recommended by ElevenLabs for new work; same tag syntax as v3, more reliable following of tags including unfamiliar deliveries; 90+ languages. No speed control; omit speed. Never a code default. [maintainer-observed] Delivery is model-specific; see ../elevenlabs-tagging.md for model-change listening review.",
+  "eleven_v4_turbo": "[verified] Tag-capable v4 family; no speed control; omit speed. [unverified] Direct-API request limit and MCP/web availability; confirm selected route.",
+  "eleven_multilingual_v2": "[verified] No audio tags; do not inherit the MCP tool default. [inferred] Unsupported tags may be read aloud; strip/convert them.",
+  "eleven_flash_v2": "[verified] No audio tags; <phoneme> supported only on this model.",
+  "eleven_flash_v2_5": "[verified] No audio tags; strip/convert them.",
+  "eleven_turbo_v2": "[verified] No audio tags; strip/convert them.",
+  "eleven_turbo_v2_5": "[verified] No audio tags; strip/convert them."
+ },
+ "credits_per_char": {
+  "value": 1.0,
+  "basis": "MCP estimate_only: 48.9951 credits / 49 chars (2026-10-06, multilingual_v2)",
+  "provisional": true
+ },
+ "max_chunk_chars": {
+  "eleven_v3": 2700,
+  "eleven_v4": 4000,
+  "eleven_v4_turbo": 4000,
+  "default": 3000,
+  "basis": "Repository conservative targets, NOT vendor request limits or model defaults. v3 2,700: production-runbook observation of unreliable finalization near 5,000. v4/v4 Turbo 4,000: [inferred] derived well below the 10,000 OpenRouter limit, untested repository choice. Direct v4 Turbo limit [unverified]; confirm before use. Project audio.chunking/audio.max_chunk_chars apply within route limits."
+ },
+ "routes": {
+  "mcp": {
+   "tool": "mcp__claude_ai_ElevenLabs__creative_generate_speech",
+   "status_tool": "mcp__claude_ai_ElevenLabs__creative_get_flow_run_status",
+   "output_durable": false,
+   "expires_after_h": 2
+  },
+  "web": {
+   "url": "https://elevenlabs.io/app/speech-synthesis",
+   "output_durable": true,
+   "method": "clipboard-paste"
+  }
+ },
+ "request_limits": {
+  "eleven_v3": 5000,
+  "eleven_v4": 10000,
+  "eleven_v4_turbo": null,
+  "text_to_dialogue": 2000,
+  "basis": "[verified] ElevenLabs models page: v3/v4; Text to Dialogue: total across inputs[].text, each turn has voice_id. [unverified] Direct v4 Turbo limit; 10,000 is verified only for OpenRouter. See ../elevenlabs-tagging.md; do not infer direct-route limits from OpenRouter. [unverified] Other direct-route ceilings are null here; OpenRouter ceilings are recorded separately.",
+  "eleven_flash_v2_5": null,
+  "eleven_multilingual_v2": null,
+  "eleven_turbo_v2_5": null,
+  "eleven_flash_v2": null,
+  "eleven_turbo_v2": null
+ },
+ "sound": {
+  "_meta": {
+   "verified": "2026-10-08",
+   "sources": "live mcp__claude_ai_ElevenLabs__creative_get_flow_node_types + creative_get_model_schema (music, sfx; read-only, 2026-10-08); elevenlabs.io/docs/overview/capabilities/sound-effects (SFX price, 30 s max); elevenlabs.io/docs/overview/capabilities/music (model family, 3 s - 5 min)",
+   "used_by": "sound-render (plugins/audio)",
+   "model_rule": "The music/SFX model comes from the project (project.json audio.music_model / audio.sfx_model) when set, else `default` below. Never a silent swap: an id not in `models` is refused.",
+   "generations_count_note": "creative_run_flow_nodes defaults generations_count to 4 (= 4x cost). Pin 1 unless the user asks for more takes on that step.",
+   "id_note": "MCP/flow ids are eleven_music_v2_5 / eleven_text_to_sound_v2; the public REST API names the newest music model music_v2_5. Use the MCP ids on the mcp route."
+  },
+  "music": {
+   "models": [
+    "eleven_music_v1",
+    "eleven_music_v2",
+    "eleven_music_v2_5"
+   ],
+   "default": "eleven_music_v2_5",
+   "params": {
+    "duration_seconds": {
+     "min": 3,
+     "max": 600,
+     "docs_max": 300
+    },
+    "lyrics_type": [
+     "auto",
+     "custom",
+     "instrumental"
+    ],
+    "instrumental": "boolean",
+    "lyrics": "text"
+   },
+   "credits": {
+    "value": null,
+    "unit": "per generation",
+    "provisional": true,
+    "basis": "no official per-second or per-track price found in ElevenLabs docs (2026-10-08); price every run with creative_run_flow_nodes estimate_only:true before approval"
+   },
+   "duration_note": "MCP schema allows up to 600 s; the docs say 5 min. Keep cues short (one cue per beat, per audio-post-mix) and stay under 300 s.",
+   "notes": "Music cues and whole tracks (3 s - 5 min per the docs); price comes from the estimate_only preflight."
+  },
+  "sfx": {
+   "models": [
+    "eleven_text_to_sound_v2"
+   ],
+   "default": "eleven_text_to_sound_v2",
+   "params": {
+    "duration_seconds": {
+     "min": 0.5,
+     "max": 30
+    },
+    "prompt_influence": {
+     "min": 0,
+     "max": 1,
+     "default": 0.3
+    },
+    "loop": "boolean"
+   },
+   "credits_per_second": {
+    "value": 40,
+    "basis": "elevenlabs.io docs, sound effects: '40 credits per second when duration is specified' (read 2026-10-08)",
+    "provisional": false,
+    "applies_when": "duration_seconds is set (always set it)"
+   },
+   "default_duration_s": 2.0,
+   "notes": "Sound effects up to 30 s; 40 credits per second when the duration is set."
+  },
+  "routes": {
+   "mcp": {
+    "create_flow": "mcp__claude_ai_ElevenLabs__creative_create_flow",
+    "add_node": "mcp__claude_ai_ElevenLabs__creative_add_flow_node",
+    "run": "mcp__claude_ai_ElevenLabs__creative_run_flow_nodes",
+    "status_tool": "mcp__claude_ai_ElevenLabs__creative_get_flow_run_status",
+    "output_durable": false,
+    "expires_after_h": 2
+   },
+   "web": {
+    "url": "https://elevenlabs.io/app",
+    "output_durable": true,
+    "method": "Claude drives Music / Sound Effects in the user's signed-in browser (Claude in Chrome, or a headless browser) and downloads the files"
+   }
+  }
+ },
+ "tag_profiles": {
+  "_note": "[measured-controlled] one voice (sarah), one sentence, 1-2 takes per case; not listening judgements. Full numbers and checklist: ../elevenlabs-tagging.md. Director applies the profile; this block never selects a model.",
+  "eleven_v3": {
+   "profile": "v3",
+   "quiet_tags": "quieter, still voiced",
+   "long_pause_s_test": 4.78,
+   "untagged_lufs_test": -13.2
+  },
+  "eleven_v4": {
+   "profile": "v4",
+   "quiet_tags": "mostly unvoiced/breathy (~5-14% voiced); not a sleep default",
+   "long_pause_s_test": 1.78,
+   "untagged_lufs_test": -21.3
+  },
+  "eleven_v4_turbo": {
+   "profile": "v4",
+   "quiet_tags": "[unverified] not in the measured set; audition"
+  }
+ }
+}

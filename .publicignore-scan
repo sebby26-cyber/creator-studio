@@ -1,0 +1,4 @@
+# Allowlist for the public-repo secret/personal-data scanner (false positives only):
+# path:<glob> skips matching files; any other line is a literal to ignore (here, a fictional example phone number).
+path:assets/brand/*.svg
+555-123-4567

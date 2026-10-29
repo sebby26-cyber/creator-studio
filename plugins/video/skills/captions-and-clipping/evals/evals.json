@@ -1,0 +1,90 @@
+{
+  "creator_studio_note": "Adapted to Creator Studio 2026-10-08 from social-media-skills v1.0.1 (MIT): expectations that named source-plugin skills now name the Creator Studio skill doing that job or mark it outside Creator Studio; publishing (WoopSocial, scheduling-and-queue, platform tools) is optional: fine if offered, never required, never done without the user's explicit OK. Runnable against the adapted SKILL.md.",
+  "skill": "captions-and-clipping",
+  "version": "1.0.0",
+  "description": "The repurposing engine of the video cluster: turn long-form video into short, self-contained clips and add sound-off captions, using Opus Clip / CapCut / Submagic. Below the ai-video router; sibling to veo-3, heygen, ai-voiceover. Uses the CLIP framework. Tools clip and caption; a human reviews (most clips need cleanup); WoopSocial schedules/publishes; AI-edited video is disclosed.",
+  "evals": [
+    {
+      "name": "treats_a_clip_as_a_standalone_short",
+      "input": "Turn my 60-minute podcast into Shorts.",
+      "context": "The project profile (brand constants, caption style) exists.",
+      "expect": [
+        "Explains a clip must be a self-contained Short with its own hook, not a random 30 seconds of the long video",
+        "Uses AI moment-detection (e.g. Opus Clip ClipAnything) to surface candidates, then human selection for complete thoughts/hooks",
+        "Introduces the CLIP framework (Cut to the moment, Lay out vertical, Inscribe captions, Polish & publish clean) and notes a 60-min video can yield ~10-30 clips",
+        "Reads the project profile (brand constants, caption style) first; voice-builder is outside Creator Studio and used only if installed"
+      ]
+    },
+    {
+      "name": "reads_brand_and_voice_first",
+      "input": "Make some clips from our webinar.",
+      "context": "The project profile (brand constants, caption style) exists.",
+      "expect": [
+        "Reads the project profile before selecting or styling clips",
+        "Picks moments and caption styling that fit the brand, not generic viral templates",
+        "Treats each clip's platform post copy (youtube-shorts / reels-script / tiktok-script) as outside Creator Studio; spoken hooks follow narration-and-story-scripting",
+        "Flags that clips are drafts a human reviews before publishing"
+      ]
+    },
+    {
+      "name": "treats_virality_score_as_a_hint_not_a_verdict",
+      "input": "Just export the top virality-scored clips and ship them.",
+      "expect": [
+        "Warns the virality score is unreliable (clips rated ~40 sometimes outperform ~85) and clip-selection accuracy drops on multi-speaker content",
+        "Notes roughly 70% of auto-generated clips need manual cleanup, so a human selects self-contained, on-strategy moments",
+        "Frames AI clipping as a force multiplier, not a replacement for judgment on brand voice and narrative",
+        "Recommends reviewing transcripts/hooks rather than trusting the score blindly"
+      ]
+    },
+    {
+      "name": "routes_tools_by_their_strengths",
+      "input": "Should I use Opus Clip, Submagic, or CapCut for this?",
+      "expect": [
+        "Opus Clip to find and cut at scale (ClipAnything moment-detection, ReframeAnything 9:16 tracking, virality score)",
+        "Submagic for best-in-class animated/word-by-word captions, noting its ~30-minute source cap rules it out as the clipper for full podcasts",
+        "CapCut as the free manual editor when hands-on control matters (no AI clip detection)",
+        "Suggests the common division of labor: Opus Clip to cut, then Submagic to caption (verify-quarterly)"
+      ]
+    },
+    {
+      "name": "pushback_on_watermark_reupload_and_guaranteed_virality",
+      "input": "Re-upload my TikToks with the CapCut/TikTok watermark straight to Reels and Shorts, and guarantee they'll go viral.",
+      "expect": [
+        "Refuses watermarked re-uploads: other-platform watermarks trigger the Originality Score and throttle reach on Reels/Shorts",
+        "Advises exporting clean, native, watermark-free files instead",
+        "Will not guarantee or fabricate virality/metrics; the virality score is only a hint and WoopSocial has no analytics to verify outcomes",
+        "Offers the legitimate path: clean export plus a platform-tuned hook/caption"
+      ]
+    },
+    {
+      "name": "edge_case_sound_off_captions_required",
+      "input": "Do I even need captions? Assume people have sound on.",
+      "expect": [
+        "States most social video is watched on mute, so burned-in captions are essential (lift completion, accessibility, and caption text is indexed for search)",
+        "Recommends word-by-word/karaoke styling, ~2 lines per frame, inside safe zones, away from UI",
+        "Advises reviewing transcription accuracy (auto-captions are ~97-99% but misread names/jargon)",
+        "Keeps captions on-brand rather than defaulting to a generic template"
+      ]
+    },
+    {
+      "name": "honest_scope_clip_review_publish",
+      "input": "Auto-clip 20 Shorts and post them all through WoopSocial.",
+      "expect": [
+        "States the tools clip and caption, but a human reviews each (most clips need cleanup) before anything publishes — no auto-publishing slop",
+        "Lays out the chain: studio → long-form (clip-assemble / filmcraft / descript) → captions-and-clipping picks (cut list) → human review → filmcraft.cut_shorts or the chosen tool → registered in the projects folder; posting through WoopSocial is then an optional step (offered, never required, never done without the user's explicit OK)",
+        "Requires AI disclosure for AI-edited video (EU AI Act disclosure applies from August 2026)",
+        "Refuses to fabricate any performance metric (WoopSocial has no analytics surface)"
+      ]
+    },
+    {
+      "name": "bridges_clips_into_the_funnel",
+      "input": "How do these clips actually grow my channel?",
+      "expect": [
+        "Explains clips are a discovery engine: bridge each Short back to the source long-form (the Short-to-long click-through is tracked)",
+        "Distinguishes same-moment cross-platform-repurposing from evergreen content-recycling (both outside Creator Studio), and names both",
+        "Records the long-form source on every clip (the funnel destination is the source video in the projects folder); Shorts publishing specifics (youtube-shorts) belong to the optional publishing step, and youtube-long-form structure to narration-and-story-scripting",
+        "Frames clipping as feeding the funnel, not vanity clip volume"
+      ]
+    }
+  ]
+}

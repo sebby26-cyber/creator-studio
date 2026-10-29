@@ -1,0 +1,14 @@
+{
+ "name": "image",
+ "version": "0.1.1",
+ "description": "Higgsfield character-consistent stills, composites, wardrobe assets and edits under selected models/routes; project image QC. Prompts via the installed higgsfield specialist skill.",
+ "author": {
+  "name": "Creator Studio contributors"
+ },
+ "keywords": [
+  "creator-studio",
+  "media",
+  "image"
+ ],
+ "license": "GPL-3.0-or-later"
+}

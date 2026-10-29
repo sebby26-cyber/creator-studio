@@ -1,0 +1,14 @@
+{
+ "name": "narrative",
+ "version": "0.1.2",
+ "description": "Narration and two-host podcast scripting: plain-language narration and episode scripts (text + JSON beats) for the voice, picture and edit stages.",
+ "author": {
+  "name": "Creator Studio contributors"
+ },
+ "keywords": [
+  "creator-studio",
+  "media",
+  "narrative"
+ ],
+ "license": "GPL-3.0-or-later"
+}

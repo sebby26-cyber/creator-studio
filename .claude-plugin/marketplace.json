@@ -1,0 +1,47 @@
+{
+ "name": "creator-studio",
+ "owner": {
+  "name": "Creator Studio contributors"
+ },
+ "metadata": {
+  "description": "Creator Studio: instruction-led media production skills (narrative, audio, image, video). Ask in plain words; each skill says what a stage takes, makes and uses, and the agent installs missing dependencies. Project data stays in your own folder; a run ends at the finished file, its sidecar and status.md.",
+  "version": "0.1.0"
+ },
+ "plugins": [
+  {
+   "name": "studio-core",
+   "source": "./plugins/studio-core",
+   "description": "Creator Studio entry point: first-run setup (projects folder, dependency check and install), saved per-project defaults (models, aspect, tools, spend), coordination of the stage skills, preserved user choices, and resumable production handoffs. A run ends at the finished file + sidecar + status.md.",
+   "version": "0.4.4",
+   "category": "media"
+  },
+  {
+   "name": "narrative",
+   "source": "./plugins/narrative",
+   "description": "Narration and two-host podcast scripting: plain-language narration and episode scripts (text + JSON beats) for the voice, picture and edit stages.",
+   "version": "0.1.2",
+   "category": "media"
+  },
+  {
+   "name": "audio",
+   "source": "./plugins/audio",
+   "description": "emotional direction (model-agnostic delivery layer), ElevenLabs voice direction and speech rendering (routes mcp|web|openrouter), ElevenLabs music + SFX rendering, Suno (web), music/sound-design briefs and voiceover craft (ai-music-and-sound, suno, ai-voiceover; from social-media-skills, MIT), audio post-mix incl. scored mixes, and two-pass EBU R128 mastering.",
+   "version": "0.7.1",
+   "category": "media"
+  },
+  {
+   "name": "image",
+   "source": "./plugins/image",
+   "description": "Higgsfield character-consistent stills, composites, wardrobe assets and edits under selected models/routes; project image QC. Prompts via the installed higgsfield specialist skill.",
+   "version": "0.1.1",
+   "category": "media"
+  },
+  {
+   "name": "video",
+   "source": "./plugins/video",
+   "description": "Visual direction (budgeted shot plan and timeline from a locked narration); Higgsfield image-to-video and motion-transfer under selected models/routes; measured-timing local assembly; table-driven episode conform (spec); FilmCraft finishing/cutting (storytold/filmcraft, MIT OR Apache-2.0). CapCut, Descript, OpusClip and caption guidance from social-media-skills (MIT).",
+   "version": "0.7.1",
+   "category": "media"
+  }
+ ]
+}

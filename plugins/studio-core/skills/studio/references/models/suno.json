@@ -1,0 +1,33 @@
+{
+ "_meta": {
+  "provider": "suno",
+  "verified": "2026-10-08",
+  "sources": "social-media-skills v1.0.1 (Frank Heijdenrijk, MIT): skills/suno SKILL.md + references/suno-2026-reality.md + tools/integrations/suno.md (all marked verify-quarterly). Not verified against suno.com in this import.",
+  "used_by": "suno (plugins/audio)",
+  "route_note": "web only. The source says an API exists but its tier gating conflicts across sources, and there is no official MCP here, so no API call is planned: Claude generates in the user's signed-in app from a checklist (browser automation) and the download goes through asset-persist.",
+  "price_note": "Suno credits are a subscription pool, not money per call. ~5 credits per song comes from the source's own tier figures (Free 50 credits/day ~ 10 songs; Pro 2,500 credits ~ 500 songs). PROVISIONAL: read the cost in the app before generating.",
+  "rights_note": "Generate on a paid plan only (free-tier songs are non-commercial forever). Commercial rights are not ownership; no indemnification while litigation runs. See plugins/audio/skills/suno/SKILL.md."
+ },
+ "models": {
+  "v5.5": {
+   "label": "Suno v5.5 (in-app model picker)",
+   "released": "2026-03-26",
+   "status": "current per source",
+   "provisional": true,
+   "best_for": "Full songs with vocals or instrumentals; web route only (Claude drives the signed-in app); ~5 credits per song (provisional); paid plan for commercial use."
+  }
+ },
+ "default": "v5.5",
+ "credits_per_song": {
+  "value": 5,
+  "provisional": true,
+  "basis": "source tier math: 50 credits/day ~ 10 songs; 2,500 credits ~ 500 songs (social-media-skills suno-2026-reality.md, verify-quarterly)"
+ },
+ "routes": {
+  "web": {
+   "url": "https://suno.com/create",
+   "output_durable": false,
+   "method": "Claude generates in the user's signed-in app (Claude in Chrome, or a headless browser); download WAV (plus stems/MIDI for keepers); hand the file to asset-persist"
+  }
+ }
+}

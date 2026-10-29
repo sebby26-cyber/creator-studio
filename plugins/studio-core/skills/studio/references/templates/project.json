@@ -1,0 +1,75 @@
+{
+  "project_version": 3,
+  "slug": "my-channel",
+  "name": "My Channel",
+  "kind": "youtube",
+  "routes": {
+    "higgsfield": { "default": "mcp" },
+    "elevenlabs": { "default": "mcp" },
+    "openrouter": { "default": null }
+  },
+  "models": {
+    "image":  { "default": null, "allowed": [], "locked": false },
+    "video":  { "default": null, "allowed": [], "locked": false },
+    "motion": { "default": null },
+    "voice":  { "default": null, "allowed": [], "locked": false },
+    "transcription": { "default": null, "allowed": [], "locked": false },
+    "music":  { "default": null },
+    "sfx":    { "default": null }
+  },
+  "defaults": {
+    "mode": "balanced",
+    "aspect": "16:9",
+    "image": { "aspect": null, "count": 1, "quality": null },
+    "video": { "aspect": null, "duration_s": null, "resolution": null },
+    "seed": null,
+    "captions": true,
+    "draft_then_final": false
+  },
+  "tools": { "prefer": [], "avoid": [] },
+  "spend": { "limit_credits": null, "ask_above_credits": null, "credits_per_usd": null },
+  "voices": [],
+  "characters": [],
+  "wardrobe": [],
+  "gates": [],
+  "audio": {
+    "loudness": { "integrated_lufs": -14, "true_peak_dbtp": -1 },
+    "export": {},
+    "chunking": { "target_chars": null, "split_at": null },
+    "max_chunk_chars": null,
+    "pace": null
+  },
+  "voice": {
+    "sleep": {
+      "hold_tag": null,
+      "endings_tags": null,
+      "banned_tags": null,
+      "untested_tags": null,
+      "retag_every_sentences": 2,
+      "retag_every_chars": 250,
+      "split_min_rest_s": null,
+      "chunk_chars": null,
+      "stability": null,
+      "carry_over_chars": null,
+      "post_silence": null,
+      "rest_fill": null,
+      "gain_match": "chunk_median_lufs",
+      "em_dash": null,
+      "base_wpm": null,
+      "qc": null,
+      "blur_watchlist": null
+    }
+  },
+  "visual": {
+    "canvas": null,
+    "text": null,
+    "look": null,
+    "motion": null,
+    "hold": null,
+    "reuse": null,
+    "prompting": null,
+    "tiers": null
+  },
+  "qc": { "checklists": {} },
+  "notes": ""
+}

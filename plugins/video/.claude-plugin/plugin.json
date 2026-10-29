@@ -1,0 +1,15 @@
+{
+ "name": "video",
+ "version": "0.7.1",
+ "description": "Visual direction (budgeted shot plan and timeline from a locked narration); Higgsfield image-to-video and motion-transfer under selected models/routes; measured-timing local assembly; table-driven episode conform (spec); FilmCraft finishing/cutting (storytold/filmcraft, MIT OR Apache-2.0). CapCut, Descript, OpusClip and caption guidance from social-media-skills (MIT).",
+ "author": {
+  "name": "Creator Studio contributors"
+ },
+ "keywords": [
+  "creator-studio",
+  "media",
+  "video",
+  "filmcraft"
+ ],
+ "license": "GPL-3.0-or-later"
+}

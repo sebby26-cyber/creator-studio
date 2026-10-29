@@ -1,0 +1,43 @@
+# media never goes in git (it lives in your projects folder)
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.mp3
+*.wav
+*.m4a
+*.aac
+*.flac
+*.ogg
+*.mp4
+*.mov
+*.webm
+media/
+# secrets / machine-local config
+*.local.json
+.env
+.env.*
+.envrc
+*.pem
+*.key
+# your projects folder and personal data stay out of the repo
+/vault/
+/Vault/
+/projects/
+/presets/
+/characters/
+**/Library/Mobile*/**
+# the local test suite uses private project fixtures and is not published
+/tests/
+# local archive of retired material, not published
+/archive/
+# third-party skills are cloned locally by the agent (see dependencies.md), never committed
+/vendor/
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# local backups (may hold private project content)
+*.bak

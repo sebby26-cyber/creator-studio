@@ -1,0 +1,14 @@
+{
+ "name": "studio-core",
+ "version": "0.4.4",
+ "description": "Creator Studio entry point: first-run setup (projects folder, dependency check and install), saved per-project defaults (models, aspect, tools, spend), coordination of the stage skills, preserved user choices, and resumable production handoffs. A run ends at the finished file + sidecar + status.md.",
+ "author": {
+  "name": "Creator Studio contributors"
+ },
+ "keywords": [
+  "creator-studio",
+  "media",
+  "studio-core"
+ ],
+ "license": "GPL-3.0-or-later"
+}

@@ -1,0 +1,13 @@
+{
+  "routes": {
+    "openrouter": { "default": "openrouter" }
+  },
+  "models": {
+    "voice": { "default": "example/replace-with-live-tts-id", "allowed": [], "locked": false },
+    "transcription": { "default": "example/replace-with-live-stt-id", "allowed": [], "locked": false },
+    "image": { "default": "example/replace-with-live-image-id", "allowed": [], "locked": false },
+    "video": { "default": "example/replace-with-live-video-id", "allowed": [], "locked": false }
+  },
+  "spend": { "credits_per_usd": null },
+  "notes": "Fictional seed example only. Replace every example/* id with the user's exact choice from public live OpenRouter discovery before use, or null for decide each time. No models are recommended here. Providers can be mixed per modality; keep direct-provider defaults for jobs they handle. Credit conversion is unset until the user chooses a rate."
+}

@@ -1,0 +1,720 @@
+{
+ "_meta": {
+  "verified": "2026-10-08",
+  "sources": {
+   "mcp_schema": "Higgsfield MCP `models_explore` (live catalog, 125 models, 2026-10-08)",
+   "elements_list": "Higgsfield MCP `show_reference_elements` tool contract (2026-10-08)",
+   "cli_cost": "`higgsfield generate cost <cli id>` at CLI defaults, text-only prompt (2026-10-08)",
+   "observed": "credits charged for test generations on one paid plan (2026-10-08); plan-dependent, not a list price",
+   "cli_ids": "`higgsfield model list --json` (read-only, 2026-10-08)"
+  },
+  "quality_tier_note": "quality_tier is a PROVISIONAL 1-5 judgment, not measured. Replace with accept-rate from approval history.",
+  "unknown_policy": "unknown values are null; treat a null est_credits as unknown and say so; unknown is never zero",
+  "soul_types_note": "show_characters contract: type soul_2 for model soul_2, type soul_cinematic for model soul_cinematic; a Soul's type must match",
+  "provider": "higgsfield",
+  "routes_note": "Each model lists the surfaces it can run on. mcp = mcp__higgsfield__* tools (ids per models_explore); cli = @higgsfield/cli `higgsfield generate create|cost <cli id>` (ids per `higgsfield model list --json`; the `hf` alias can be shadowed by the HuggingFace CLI, so always type the full `higgsfield` command); web = higgsfield.ai in the browser, run by a person or a browser agent from a settings checklist. CLI and MCP ids DIFFER (soul_2 vs text2image_soul_v2, nano_banana_2 vs nano_banana_flash) and so do some param names (MCP soul_id vs CLI custom_reference_id) and defaults: always pass params explicitly.",
+  "cost_note": "est_credits is per route and is a public/observed price as of the `verified` date: Higgsfield prices vary by plan and change over time, so check live before spending (MCP `get_cost: true` preflight or `models_explore`; CLI `higgsfield generate cost <cli id>`; the web generate page). Read `credits_exact`, not `credits`, from an MCP get_cost preflight (`credits` is a rounded display value: soul_2 preflight returned credits 1 / credits_exact 0.12, 2026-10-08). Some models price differently per route and plan: for example Seedream 5 Lite was 1 credit via MCP and CLI (2026-10-08) but can be free on the web on plans that include it. The CLI has no unlimited option. MCP `use_unlim` draws on the FREE-TRIAL allowance only: always send use_unlim:false unless the user explicitly asks for true on that call.",
+  "best_for_note": "best_for is a one-line summary for model recommendations (recommending or comparing models), taken only from ~/.claude/skills/higgsfield (image-models.md, model-guide.md, specs/model-specs.yaml) and this registry; best_for_source says which."
+ },
+ "capability_vocabulary": {
+  "image.t2i": "text to image",
+  "image.character": "image that must keep a known character's identity (Soul id or character Element)",
+  "image.multi_ref": "image built from several references (Elements and/or reference images)",
+  "image.edit": "edit/inpaint an existing image",
+  "video.i2v": "image to video from a start image",
+  "video.start_end_frame": "video interpolating between a supplied start frame and end frame",
+  "video.motion_transfer": "transfer motion from a reference video onto a character"
+ },
+ "models": {
+  "soul_2": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "Photoreal portraits and fashion/editorial looks that keep a trained Soul character's face (Soul id); the cheapest identity route at 0.12 credits.",
+   "best_for_source": "image-models.md Soul 2.0 'Best for' + registry price",
+   "capabilities": [
+    "image.t2i",
+    "image.character"
+   ],
+   "inputs": {
+    "soul_id": true,
+    "elements": false,
+    "max_ref_images": 1,
+    "soul_types": [
+     "soul_2"
+    ]
+   },
+   "aspect_ratios": [
+    "1:1",
+    "16:9",
+    "9:16",
+    "4:3",
+    "3:4",
+    "3:2",
+    "2:3"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "one soul_id per generation",
+    "ignores <<<element>>> placeholders, so outfits/scenes go in as text only",
+    "CLI id text2image_soul_v2 and CLI param custom_reference_id (verified: `higgsfield generate cost text2image_soul_v2 --custom_reference_id ...` = 0.12); MCP id soul_2 and param soul_id"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "soul_2",
+     "est_credits": 0.12,
+     "basis": "MCP get_cost credits_exact 0.12 (2026-10-08); varies by plan, check live with get_cost",
+     "price_source": "mcp_get_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "text2image_soul_v2",
+     "est_credits": 0.12,
+     "basis": "CLI default (2k), `generate cost` 0.12 (2026-10-08); varies by plan",
+     "price_source": "cli_cost",
+     "param_map": {
+      "soul_id": "custom_reference_id"
+     }
+    },
+    "web": {
+     "label": "Soul 2.0",
+     "est_credits": 0.12,
+     "basis": "matched the MCP price on a paid plan (2026-10-08); varies by plan, check on the web generate page",
+     "price_source": "observed"
+    }
+   },
+   "fixed_params": {
+    "quality": "2k"
+   }
+  },
+  "soul_cinematic": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "Cinematic-grade stills (rich textures, natural composition, film-grain look); identity only with a soul_cinematic-type Soul.",
+   "best_for_source": "image-models.md Soul Cinema 'Best for' + registry limitations",
+   "capabilities": [
+    "image.t2i",
+    "image.character"
+   ],
+   "inputs": {
+    "soul_id": true,
+    "elements": false,
+    "max_ref_images": 1,
+    "soul_types": [
+     "soul_cinematic"
+    ]
+   },
+   "aspect_ratios": [
+    "1:1",
+    "4:3",
+    "3:4",
+    "16:9",
+    "9:16",
+    "3:2",
+    "2:3",
+    "21:9"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "one soul_id per generation",
+    "needs a Soul trained as soul_cinematic type; a soul_2 Soul does not work here",
+    "ignores <<<element>>> placeholders"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "soul_cinematic",
+     "est_credits": 0.12,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "soul_cinematic",
+     "est_credits": 0.12,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Soul Cinema",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "nano_banana_2": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "Pro-quality output at Flash speed: complex prompts, character-consistent multi-image work, text in images, edits; identity through Elements.",
+   "best_for_source": "image-models.md Nano Banana 2 'Best for'",
+   "capabilities": [
+    "image.t2i",
+    "image.character",
+    "image.multi_ref",
+    "image.edit"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "auto",
+    "1:1",
+    "3:2",
+    "2:3",
+    "4:3",
+    "3:4",
+    "4:5",
+    "5:4",
+    "9:16",
+    "16:9",
+    "21:9"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "CLI job_type is nano_banana_flash (display 'Nano Banana 2'), not nano_banana_2 — MCP and CLI ids differ",
+    "no soul_id"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "nano_banana_2",
+     "est_credits": 2,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "nano_banana_flash",
+     "est_credits": 2,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Nano Banana 2",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "nano_banana_pro": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "Professional assets: complex multi-element prompts, accurate text in images, brand mockups, storyboards; identity through Elements.",
+   "best_for_source": "image-models.md Nano Banana Pro 'Best for'",
+   "capabilities": [
+    "image.t2i",
+    "image.character",
+    "image.multi_ref"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "1:1",
+    "3:2",
+    "2:3",
+    "4:3",
+    "3:4",
+    "4:5",
+    "5:4",
+    "9:16",
+    "16:9",
+    "21:9"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 5,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "no soul_id"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "nano_banana_pro",
+     "est_credits": 2,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "nano_banana_pro",
+     "est_credits": 2,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Nano Banana Pro",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "seedream_v5_lite": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "Fast, high-aesthetic images in versatile styles for rapid iteration; 1 credit via MCP/CLI, and free on the web on some plans.",
+   "best_for_source": "image-models.md Seedream 5.0 Lite 'Best for' + registry prices",
+   "capabilities": [
+    "image.t2i",
+    "image.character",
+    "image.multi_ref"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "1:1",
+    "4:3",
+    "3:4",
+    "16:9",
+    "9:16",
+    "21:9"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 3,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "no 2:3 / 3:2 aspect ratios",
+    "no soul_id",
+    "0 credits on web, 1 credit via MCP and CLI: the route changes the price"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "seedream_v5_lite",
+     "est_credits": 1,
+     "basis": "MCP get_cost preflight = 1 credit (2026-10-08); can be free on the web on some plans",
+     "price_source": "mcp_get_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "seedream_v5_lite",
+     "est_credits": 1,
+     "basis": "CLI `generate cost` list price 1 (no unlimited option on the CLI)",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Seedream 5.0 Lite",
+     "est_credits": null,
+     "basis": "plan-dependent: free on the web on plans that include it (seen 2026-10-08), otherwise the plan price; check on the web generate page. NOT the MCP/CLI price",
+     "price_source": "observed"
+    }
+   }
+  },
+  "seedream_v4_5": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "4K output when maximum resolution matters more than speed.",
+   "best_for_source": "image-models.md Seedream 4.5 'Best for'",
+   "capabilities": [
+    "image.t2i",
+    "image.character",
+    "image.multi_ref"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "1:1",
+    "4:3",
+    "16:9",
+    "3:2",
+    "21:9",
+    "3:4",
+    "9:16",
+    "2:3"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 3,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "no soul_id"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "seedream_v4_5",
+     "est_credits": 1,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "seedream_v4_5",
+     "est_credits": 1,
+     "basis": "CLI default",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Seedream 4.5",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "gpt_image_2_5": {
+   "provider": "higgsfield",
+   "media": "image",
+   "best_for": "Generation and editing from reference images (Flare/Sunburst variants, transparent-background option); cannot hold a character's identity.",
+   "best_for_source": "image-models.md GPT Image 2.5 catalog description + registry limitations",
+   "capabilities": [
+    "image.t2i",
+    "image.multi_ref",
+    "image.edit"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": false,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "auto",
+    "1:1",
+    "3:2",
+    "2:3",
+    "4:3",
+    "3:4",
+    "16:9",
+    "9:16",
+    "21:9",
+    "27:16",
+    "16:27",
+    "9:8",
+    "8:9",
+    "4:5",
+    "5:4"
+   ],
+   "durations": null,
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "fixed_params": {
+    "quality": "low",
+    "resolution": "1k"
+   },
+   "limitations": [
+    "not in the Elements-supported list (gpt_image_2 is) so it cannot hold character identity",
+    "no soul_id"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "gpt_image_2_5",
+     "est_credits": 0.25,
+     "basis": "quality=low, resolution=1k; higher settings cost more (unmeasured)",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_image"
+    },
+    "cli": {
+     "id": "gpt_image_2_5",
+     "est_credits": 0.25,
+     "basis": "quality=low, resolution=1k; higher settings cost more (unmeasured)",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "GPT Image 2.5",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "seedance_2_0": {
+   "provider": "higgsfield",
+   "media": "video",
+   "best_for": "Complex motion with up to 12 reference assets, native 4K and genre hints; 4-15 s clips.",
+   "best_for_source": "model-guide.md Seedance 2.0 row",
+   "capabilities": [
+    "video.i2v",
+    "video.start_end_frame"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "auto",
+    "16:9",
+    "9:16",
+    "4:3",
+    "3:4",
+    "1:1",
+    "21:9"
+   ],
+   "durations": {
+    "min": 4,
+    "max": 15
+   },
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "no soul_id: identity via start frame or character Element"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "seedance_2_0",
+     "est_credits": 22.5,
+     "basis": "5s, 720p, audio on (CLI default)",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_video"
+    },
+    "cli": {
+     "id": "seedance_2_0",
+     "est_credits": 22.5,
+     "basis": "5s, 720p, audio on (CLI default)",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Seedance 2.0",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "seedance_2_5": {
+   "provider": "higgsfield",
+   "media": "video",
+   "best_for": "Omni-reference (up to 30 images), up to 30 s in one generation, video edit and extension modes; the priciest clip here.",
+   "best_for_source": "model-guide.md Seedance 2.5 row + registry price",
+   "capabilities": [
+    "video.i2v",
+    "video.start_end_frame"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": false,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "auto",
+    "21:9",
+    "16:9",
+    "4:3",
+    "1:1",
+    "3:4",
+    "9:16"
+   ],
+   "durations": {
+    "min": 4,
+    "max": 30
+   },
+   "verified": "2026-10-08",
+   "quality_tier": 5,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "not in the Elements-supported list",
+    "draft/draft_job_id flow available (cheaper draft)"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "seedance_2_5",
+     "est_credits": 35,
+     "basis": "5s, 720p (CLI default); about 15/gen observed at 5s 480p draft=true (2026-10-08); varies by plan",
+     "price_source": "cli_cost+observed",
+     "tool": "mcp__higgsfield__generate_video"
+    },
+    "cli": {
+     "id": "seedance_2_5",
+     "est_credits": 35,
+     "basis": "5s, 720p (CLI default); about 15/gen observed at 5s 480p draft=true (2026-10-08); varies by plan",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Seedance 2.5",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "kling3_0": {
+   "provider": "higgsfield",
+   "media": "video",
+   "best_for": "Cinematic clips with native audio and multi-shot, 3-15 s; only 16:9, 9:16 or 1:1.",
+   "best_for_source": "model-guide.md Kling 3.0 row",
+   "capabilities": [
+    "video.i2v",
+    "video.start_end_frame"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "16:9",
+    "9:16",
+    "1:1"
+   ],
+   "durations": {
+    "min": 3,
+    "max": 15
+   },
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Elements honored only when a start_image is supplied",
+    "only 16:9 / 9:16 / 1:1"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "kling3_0",
+     "est_credits": 10,
+     "basis": "5s, std, sound on (CLI default)",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_video"
+    },
+    "cli": {
+     "id": "kling3_0",
+     "est_credits": 10,
+     "basis": "5s, std, sound on (CLI default)",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Kling 3.0",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "veo3_1_lite": {
+   "provider": "higgsfield",
+   "media": "video",
+   "best_for": "Budget Veo 3.1 quality at 1080p for image-to-video at volume; 4, 6 or 8 s clips only.",
+   "best_for_source": "model-guide.md Veo 3.1 Lite row",
+   "capabilities": [
+    "video.i2v",
+    "video.start_end_frame"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": false,
+    "max_ref_images": null
+   },
+   "aspect_ratios": [
+    "16:9",
+    "9:16",
+    "auto"
+   ],
+   "durations": {
+    "options": [
+     4,
+     6,
+     8
+    ]
+   },
+   "verified": "2026-10-08",
+   "quality_tier": 3,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "durations 4/6/8 only",
+    "no Elements"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "veo3_1_lite",
+     "est_credits": 12,
+     "basis": "CLI default (duration not recorded)",
+     "price_source": "cli_cost",
+     "tool": "mcp__higgsfield__generate_video"
+    },
+    "cli": {
+     "id": "veo3_1_lite",
+     "est_credits": 12,
+     "basis": "CLI default (duration not recorded)",
+     "price_source": "cli_cost",
+     "param_map": {}
+    },
+    "web": {
+     "label": "Veo 3.1 Lite",
+     "est_credits": null,
+     "basis": "web price not verified",
+     "price_source": "unknown"
+    }
+   }
+  },
+  "hf_mult_motion_control": {
+   "provider": "higgsfield",
+   "media": "video",
+   "best_for": "Genjutsu motion transfer: copies the motion of a reference video onto the subject of your stills; not yet field-rated, price from the preflight.",
+   "best_for_source": "model-guide.md Genjutsu row + registry limitations",
+   "name": "Genjutsu (motion transfer)",
+   "capabilities": [
+    "video.motion_transfer"
+   ],
+   "inputs": {
+    "soul_id": false,
+    "elements": false,
+    "max_ref_images": null,
+    "reference_video": true
+   },
+   "aspect_ratios": [],
+   "durations": null,
+   "accepts_params": [
+    "resolution"
+   ],
+   "param_options": {
+    "resolution": [
+     "480p",
+     "720p",
+     "1080p"
+    ]
+   },
+   "media_roles": {
+    "image": "image",
+    "video": "video",
+    "note": "higgsfield skill model-guide.md / marketing-studio SKILL.md section 14: generate_video says role `image` for the subject images and exactly one `video` for the driving video; the models_explore snapshot lists `image_references` / `video_references` (the server may auto-coerce). Check models_explore for hf_mult_motion_control before the call."
+   },
+   "verified": "2026-10-08",
+   "quality_tier": 4,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "no prompt parameter listed in the catalog snapshot (whether a prompt is read is not stated)",
+    "only param: resolution (480p/720p/1080p, default 720p)",
+    "billing and length limits not stated: price comes from the get_cost preflight",
+    "route per the Higgsfield MCP: Genjutsu routes through generate_video; never the legacy motion_control tool for a Genjutsu edit"
+   ],
+   "routes": {
+    "mcp": {
+     "id": "hf_mult_motion_control",
+     "est_credits": null,
+     "basis": "not stated by the platform",
+     "price_source": "unknown",
+     "tool": "mcp__higgsfield__generate_video"
+    }
+   },
+   "source": "~/.claude/skills/higgsfield specs/model-specs.yaml (id hf_mult_motion_control, media roles image_references + video_references, param resolution) + model-guide.md section Motion Transfer + Higgsfield MCP server instructions (Genjutsu motion transfer -> hf_mult_motion_control through generate_video)"
+  }
+ }
+}

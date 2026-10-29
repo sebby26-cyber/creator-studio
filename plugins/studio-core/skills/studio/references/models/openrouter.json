@@ -1,0 +1,482 @@
+{
+ "_meta": {
+  "provider": "openrouter",
+  "verified": "2026-10-17",
+  "sources": {
+   "guides": "https://openrouter.ai/docs/guides/overview/multimodal/ (tts, stt, image-generation, video-generation); live API facts supplied 2026-10-17",
+   "models": "https://openrouter.ai/api/v1/models",
+   "images": "https://openrouter.ai/api/v1/images/models",
+   "videos": "https://openrouter.ai/api/v1/videos/models",
+   "elevenlabs": "[verified] https://openrouter.ai/blog/announcements/elevenlabs-on-openrouter ; https://openrouter.ai/docs/features/multimodal/tts ; supplied facts fetched 2026-10-17. Evidence and one maintainer A/B: ../elevenlabs-tagging.md."
+  },
+  "routes_note": "openrouter = curl against https://openrouter.ai/api/v1; Authorization: Bearer $OPENROUTER_API_KEY from shell environment only. No ElevenLabs music/SFX/voice-library access; those stay on the direct ElevenLabs route.",
+  "discovery_note": "Live discovery is the source of truth; no hard-coded model assumptions. GET /api/v1/models is public with no key needed for listing; filter output_modalities=speech|transcription|image|video (one modality per query). Check supported_voices for TTS and /images/models and /videos/models for controls. This file is only a seed/fallback when offline or the list is unreachable; label fallback choices unconfirmed and recheck before generation.",
+  "unknown_policy": "Unknown values are null, never zero. Entries verify listing/documentation, not successful paid generations or every optional control.",
+  "cost_note": "Estimates only from live /models pricing.prompt and pricing.completion strings in USD; units depend on model (TTS usually input characters, sometimes output seconds; STT seconds or tokens). Video /videos/models pricing_skus units are CENTS: divide by 100 for USD, then multiply by applicable duration/count. No fixed credit price: use the user's spend.credits_per_usd; missing means no default."
+ },
+ "capability_vocabulary": {
+  "tts": "text to speech; supported voices and direction controls vary by model",
+  "stt": "speech to text; word timestamps/diarization are not universal",
+  "image.t2i": "text to image",
+  "video.t2v": "text to video; image-to-video requires live frame schema verification"
+ },
+ "models": {
+  "elevenlabs/eleven-v4": {
+   "provider": "openrouter",
+   "media": "tts",
+   "best_for": "[verified] Tag-directed speech through 21 named OpenRouter voices; project voices[].model selects it. Listing presence varies; confirm availability before generation.",
+   "best_for_source": "[verified] OpenRouter ElevenLabs announcement and TTS docs, supplied 2026-10-17",
+   "capabilities": [
+    "tts"
+   ],
+   "inputs": {
+    "input": "string",
+    "voice": "supported_voices",
+    "tags_supported": true,
+    "instructions": false,
+    "speed": false
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "[verified] Same bracket tag syntax in input as direct v3/v4; 90+ languages; 10,000 chars/request per announcement (model page states no limit); tags count toward limits and billing per Unicode code point. [maintainer-observed] Delivery is model-specific; model-change listening review: ../elevenlabs-tagging.md.",
+    "[verified] voice is one of 21 named voices (for example george, sarah, adam). [unverified] Direct-account voice portability; never silently swap a kept voice.",
+    "[verified] Omit instructions (ignored for ElevenLabs) and speed (v4/v4 Turbo reject non-default speed); use tags/punctuation for all direction.",
+    "[observed] instructions: accepted without error but had no observable effect on elevenlabs/eleven-v4 in one A/B (2026-10-17); do not rely on it; output is nondeterministic so one test is indicative, not proof",
+    "[verified] response_format mp3|pcm, default pcm. ElevenLabs settings go under provider.options.elevenlabs; see ../elevenlabs-tagging.md for keys/codec matching and continuity context."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "elevenlabs/eleven-v4",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. pricing.prompt = 0.00004 USD per input character (snapshot).",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": "0.00004",
+      "completion": null
+     }
+    }
+   }
+  },
+  "openai/gpt-4o-mini-tts-2025-12-15": {
+   "provider": "openrouter",
+   "media": "tts",
+   "best_for": "Speech through the selected OpenRouter voice/model.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "tts"
+   ],
+   "inputs": {
+    "input": "string",
+    "voice": "supported_voices",
+    "instructions": true
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Instructions supported; check current voice and speed controls."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "openai/gpt-4o-mini-tts-2025-12-15",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "google/gemini-3.8-flash-lite-tts": {
+   "provider": "openrouter",
+   "media": "tts",
+   "best_for": "Speech through the selected OpenRouter voice/model.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "tts"
+   ],
+   "inputs": {
+    "input": "string or multi-speaker turns",
+    "voice": "supported_voices",
+    "instructions": true
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Multi-speaker turns supported; preserve speaker mapping."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "google/gemini-3.8-flash-lite-tts",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "openai/whisper-1": {
+   "provider": "openrouter",
+   "media": "stt",
+   "best_for": "Transcription through OpenRouter; review accuracy before captions or edits.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "stt"
+   ],
+   "inputs": {
+    "input_audio": "base64 raw bytes + format"
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "60-second upstream timeout: split long audio; supported timestamps vary by provider."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "openai/whisper-1",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "microsoft/mai-transcribe-2": {
+   "provider": "openrouter",
+   "media": "stt",
+   "best_for": "Transcription through OpenRouter; review accuracy before captions or edits.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "stt"
+   ],
+   "inputs": {
+    "input_audio": "base64 raw bytes + format"
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Verify timestamp and language support live."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "microsoft/mai-transcribe-2",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "elevenlabs/scribe-v2": {
+   "provider": "openrouter",
+   "media": "stt",
+   "best_for": "Transcription through OpenRouter; review accuracy before captions or edits.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "stt"
+   ],
+   "inputs": {
+    "input_audio": "base64 raw bytes + format"
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Listed in live /models; not documented on the STT guide; [unverified] word/diarization options.",
+    "elevenlabs/scribe-v2-medical has the same listing/documentation caveat."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "elevenlabs/scribe-v2",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "bytedance-seed/seedream-4.5": {
+   "provider": "openrouter",
+   "media": "image",
+   "best_for": "Stills through OpenRouter; confirm selected controls live.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "image.t2i"
+   ],
+   "inputs": {
+    "prompt": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Check reference/edit support and endpoint pricing live; no dedicated edit endpoint."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "bytedance-seed/seedream-4.5",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "openai/gpt-image-2": {
+   "provider": "openrouter",
+   "media": "image",
+   "best_for": "Stills through OpenRouter; confirm selected controls live.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "image.t2i"
+   ],
+   "inputs": {
+    "prompt": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Explicit pixel size conflicts with resolution/aspect_ratio; provider controls vary."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "openai/gpt-image-2",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "google/gemini-3.1-flash-image": {
+   "provider": "openrouter",
+   "media": "image",
+   "best_for": "Stills through OpenRouter; confirm selected controls live.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "image.t2i"
+   ],
+   "inputs": {
+    "prompt": true,
+    "max_ref_images": null
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Check provider resolution, aspect and reference controls live."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "google/gemini-3.1-flash-image",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/models (pricing.prompt, pricing.completion, USD)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "google/veo-3.1": {
+   "provider": "openrouter",
+   "media": "video",
+   "best_for": "Asynchronous video through OpenRouter; confirm frame support live.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "video.t2v"
+   ],
+   "inputs": {
+    "prompt": true,
+    "frame_images": null
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Unstable interface; frame_images image-object shape unverified: check supported_frame_images and current docs before image-to-video.",
+    "Not ZDR-eligible; download promptly with asset-persist."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "google/veo-3.1",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/videos/models (pricing_skus, cents)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "kwaivgi/kling-v3.0-pro": {
+   "provider": "openrouter",
+   "media": "video",
+   "best_for": "Asynchronous video through OpenRouter; confirm frame support live.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "video.t2v"
+   ],
+   "inputs": {
+    "prompt": true,
+    "frame_images": null
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Unstable interface; frame_images image-object shape unverified: check supported_frame_images and current docs.",
+    "Seed is not guaranteed; no verified motion-transfer route here."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "kwaivgi/kling-v3.0-pro",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/videos/models (pricing_skus, cents)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  },
+  "bytedance/seedance-2.0": {
+   "provider": "openrouter",
+   "media": "video",
+   "best_for": "Asynchronous video through OpenRouter; confirm frame support live.",
+   "best_for_source": "2026-10-17 supplied live API/guide facts",
+   "capabilities": [
+    "video.t2v"
+   ],
+   "inputs": {
+    "prompt": true,
+    "frame_images": null
+   },
+   "aspect_ratios": null,
+   "durations": null,
+   "verified": "2026-10-17",
+   "quality_tier": null,
+   "quality_tier_provisional": true,
+   "limitations": [
+    "Unstable interface; verify frame schema, resolutions, durations and audio controls live."
+   ],
+   "routes": {
+    "openrouter": {
+     "id": "bytedance/seedance-2.0",
+     "est_credits": null,
+     "basis": "USD estimate only; no default credit conversion. Price unknown until live lookup for exact model/settings.",
+     "price_source": "https://openrouter.ai/api/v1/videos/models (pricing_skus, cents)",
+     "pricing": {
+      "prompt": null,
+      "completion": null
+     }
+    }
+   }
+  }
+ },
+ "elevenlabs_tts": {
+  "_source": "[verified] Model-family limits and controls: OpenRouter ElevenLabs announcement, supplied 2026-10-17; ../elevenlabs-tagging.md. [unverified] Exact route ids, availability, supported voices and prices beyond the documented elevenlabs/eleven-v4; discover them, never derive slugs from these upstream ids.",
+  "instructions": false,
+  "response_format": [
+   "mp3",
+   "pcm"
+  ],
+  "notes": "[verified] Put tags in input only where tags_supported is true; tags count toward Unicode-code-point billing and request limits. All ElevenLabs settings go under provider.options.elevenlabs. Context previous_text/next_text ~500 chars each way; see ../elevenlabs-tagging.md for complete keys, codec matching and evidence. Failed generations are not billed. [inferred] Strip/convert unsupported tags to avoid literal readings.",
+  "models": {
+   "eleven_v4": {
+    "tags_supported": true,
+    "max_request_chars": 10000,
+    "speed": false
+   },
+   "eleven_v4_turbo": {
+    "tags_supported": true,
+    "max_request_chars": 10000,
+    "speed": false
+   },
+   "eleven_v3": {
+    "tags_supported": true,
+    "max_request_chars": 5000,
+    "speed": null
+   },
+   "eleven_multilingual_v2": {
+    "tags_supported": false,
+    "max_request_chars": 10000,
+    "speed": true
+   },
+   "eleven_flash_v2_5": {
+    "tags_supported": false,
+    "max_request_chars": 40000,
+    "speed": true
+   },
+   "eleven_flash_v2": {
+    "tags_supported": false,
+    "max_request_chars": 30000,
+    "speed": true
+   },
+   "eleven_turbo_v2_5": {
+    "tags_supported": false,
+    "max_request_chars": 40000,
+    "speed": null
+   },
+   "eleven_turbo_v2": {
+    "tags_supported": false,
+    "max_request_chars": 30000,
+    "speed": null
+   }
+  },
+  "speed_note": "[verified] Omit speed for v4/v4 Turbo; non-default values rejected. Multilingual v2/Flash: 0.7-1.2 at provider.options.elevenlabs.voice_settings.speed. [unverified] null means speed support not established (v3/Turbo v2 family); omit unless verified."
+ }
+}
